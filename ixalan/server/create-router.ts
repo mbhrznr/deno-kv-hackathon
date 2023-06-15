@@ -1,5 +1,10 @@
 import { Status } from "deno/http/http_status.ts";
 
+/** @todo: this should be moved into dedicated `error.tsx` routes once supported */
+import Error from "app/components/error/error.tsx";
+/** @todo: this should be moved into dedicated `layout.tsx` routes once supported */
+import Layout, { load as layoutLoad } from "app/components/layout/layout.tsx";
+
 import error from "ixalan/responses/error.ts";
 import html from "ixalan/responses/html.ts";
 
@@ -80,9 +85,6 @@ export default function createRouter(context: Context) {
 
         /** handle page */
         if (page?.default) {
-          /** @todo: this should be moved into dedicated `layout.tsx` once supported */
-          const l = await import("app/components/layout/layout.tsx");
-
           const pa = page?.action as ActionFunction;
           const pl = page?.load as LoadFunction;
           const p = page?.default as VFC<PageProps<typeof pl, typeof pa>>;
@@ -93,17 +95,17 @@ export default function createRouter(context: Context) {
           switch (method) {
             case "get":
               return html(
-                /** @todo: this should be moved into dedicated `layout.tsx` once supported */
-                l.default({
-                  load: await l.load(request, context),
+                /** @todo: this should be moved into dedicated `layout.tsx` routes once supported */
+                Layout({
+                  load: await layoutLoad(request, context),
                   children: [p?.({ load: await pl?.(request, context) })],
                 })
               );
             case "post":
               return html(
-                /** @todo: this should be moved into dedicated `layout.tsx` once supported */
-                l.default({
-                  load: await l.load(request, context),
+                /** @todo: this should be moved into dedicated `layout.tsx` routes once supported */
+                Layout({
+                  load: await layoutLoad(request, context),
                   children: [
                     p?.({
                       action: await pa?.(request, context),
@@ -130,9 +132,7 @@ export default function createRouter(context: Context) {
           request.headers.get("accept")?.includes("text/html")
         ) {
           /** @todo this should be moved into dedicated `error.tsx` routes once supported */
-          const e = await import("app/components/error/error.tsx");
           /** @todo: this should be moved into dedicated `layout.tsx` routes once supported */
-          const l = await import("app/components/layout/layout.tsx");
           const p =
             err instanceof Response
               ? { status: err.status, statusText: err?.statusText }
@@ -144,9 +144,9 @@ export default function createRouter(context: Context) {
 
           return html(
             /** @todo: this should be moved into dedicated `layout.tsx` routes once supported */
-            l.default({
-              load: await l.load(request, context),
-              children: [e?.default(p)],
+            Layout({
+              load: await layoutLoad(request, context),
+              children: [Error(p)],
             })
           );
         }
