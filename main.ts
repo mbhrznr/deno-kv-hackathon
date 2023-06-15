@@ -17,10 +17,6 @@ const port = 8080;
 const database = await createDatabase<Schema>();
 const routes = createRoutes(manifest, overrides);
 
-await database.deleteMany("pokemon");
-await database.deleteMany("votes");
-await database.deleteMany("votes_per_pokemon");
-
 /** seed the database if needed */
 await seed(database);
 
