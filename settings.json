@@ -1,0 +1,16 @@
+{
+  "cache": {
+    "age": 604800
+  },
+  "oauth": {
+    "cookie": "oauth-cookie"
+  },
+  "paginiation": {
+    "limit": 9,
+    "links": 5
+  },
+  "pokemon": {
+    "limit": 151,
+    "shiny": 8192
+  }
+}

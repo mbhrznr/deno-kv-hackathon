@@ -1,0 +1,13 @@
+{
+  "imports": {
+    "deno/dotenv/": "https://deno.land/std@0.191.0/dotenv/",
+    "deno/fs/": "https://deno.land/std@0.191.0/fs/",
+    "deno/http/": "https://deno.land/std@0.191.0/http/",
+    "deno/x/kv_oauth/": "https://deno.land/x/deno_kv_oauth@v0.1.6-beta/",
+
+    "app/": "./",
+
+    "ixalan/": "./ixalan/",
+    "ixalan/jsx-runtime": "./ixalan/jsx-runtime/runtime.ts"
+  }
+}

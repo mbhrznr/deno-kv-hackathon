@@ -1,0 +1,66 @@
+:root {
+  /* colors */
+  --theme-focus: #ddd;
+  --theme-footer: #f3f3f3;
+  --theme-header: #f9f9f9a6;
+  --theme-icon: #444;
+  --theme-input: #444;
+  --theme-surface: #fff;
+  --theme-text: #444;
+
+  /* shared */
+  --theme-primary: #a497ab;
+  --theme-primary-alpha: #a497abcc;
+  --theme-secondary: #e6e0ce;
+  --theme-secondary-alpha: #e6e0cecc;
+  --theme-accent: #c6cadc;
+  --theme-accent-alpha: #c6cadccc;
+  --theme-fab: #fff;
+  --theme-border: #ccc;
+  --theme-shadow: 1px 1px 8px rgb(0 0 0 / 25%);
+  --theme-max-content-width: 1000px;
+  --theme-max-leaderboard-width: 600px;
+  --theme-max-pokemon-width: 400px;
+
+  /* type colors and fonts */
+  --theme-type-bug: #a6b91a;
+  --theme-type-dark: #705746;
+  --theme-type-dragon: #6f35fc;
+  --theme-type-electric: #f7d02c;
+  --theme-type-fairy: #d685ad;
+  --theme-type-fighting: #c22e28;
+  --theme-type-fire: #ee8130;
+  --theme-type-flying: #a98ff3;
+  --theme-type-ghost: #735797;
+  --theme-type-grass: #7ac74c;
+  --theme-type-ground: #e2bf65;
+  --theme-type-ice: #96d9d6;
+  --theme-type-normal: #a8a77a;
+  --theme-type-poison: #a33ea1;
+  --theme-type-psychic: #f95587;
+  --theme-type-rock: #b6a136;
+  --theme-type-steel: #b7b7ce;
+  --theme-type-water: #6390f0;
+
+  --theme-vote-allstar: #ffa94d;
+  --theme-vote-infamous: #9775fa;
+  --theme-vote-favorite: #ff8787;
+  --theme-vote-versatile: #4dabf7;
+  
+  --theme-medal: #ffd43b;
+  --theme-shiny: #ffd43b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* colors */
+    --theme-focus: #666;
+    --theme-header: #272727a6;
+    --theme-footer: #272727;
+    --theme-icon: #fff;
+    --theme-input: #424242;
+    --theme-ripple: #fff7;
+    --theme-surface: #212121;
+    --theme-text: #fff;
+  }
+}

@@ -1,0 +1,315 @@
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  margin: 0;
+  position: relative;
+  scroll-padding-top: 4rem;
+  width: 100%;
+}
+
+body {
+  background-color: var(--theme-surface);
+  color: var(--theme-text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu,
+    Cantarell, 'Helvetica Neue', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  font-weight: 200;
+}
+
+*:not(header) {
+  transition: box-shadow .2s;
+}
+
+*:focus {
+  box-shadow: unset;
+}
+
+*:focus-visible {
+  box-shadow: 0 0 0 2px var(--theme-accent);
+  outline: none;
+}
+
+
+h1, h2, h3, h4, h5, h6, strong {
+  font-weight: 300;
+}
+
+main {
+  flex: 1;
+  padding: 2.5vh max(7.5vw, 50vw - var(--theme-max-content-width) / 2);
+}
+
+footer {
+  padding: 5vh max(7.5vw, 50vw - var(--theme-max-content-width) / 2);
+}
+
+header {
+  background: var(--theme-header);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--theme-shadow);
+  justify-content: space-between;
+  padding: 0.5vh max(7.5vw, 50vw - var(--theme-max-content-width) / 2);
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+header,
+header a,
+header nav,
+header nav ul,
+header img {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
+header img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+header nav {
+  display: flex;
+}
+
+header nav > a,
+header > a {
+  border-radius: 50%;
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  padding: unset;
+}
+
+nav ul li {
+  list-style-type: none;
+}
+
+nav[aria-label="pagination"] ul {
+  justify-content: center;
+}
+
+nav[aria-label="pagination"] a {
+  border: 1px solid var(--theme-border);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.5rem;
+  margin-top: 2rem;
+  text-decoration: none;
+  width: 1.5rem;
+}
+
+nav[aria-label="pagination"] a[aria-current="true"] {
+  box-shadow: 0 0 0 2px var(--theme-accent);
+  color: var(--theme-accent);
+}
+
+a {
+  border-radius: 0.125rem;
+  color: var(--theme-text);
+  transition: color 0.4s;
+}
+
+a[aria-current="page"],
+a:hover {
+  color: var(--theme-accent);
+  text-decoration: underline;
+}
+
+code {
+  border: 1px solid var(--theme-border);
+  border-radius: 0.25rem;
+  font-size: inherit;
+  padding: 0.125rem;
+}
+
+input,
+button {
+  background-color: var(--theme-surface);
+  border: 1px solid var(--theme-border);
+  border-radius: 0.5rem;
+  color: var(--theme-text);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.4;
+}
+
+button {
+  background-color: #f4f4f4;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+}
+
+button:disabled {
+  color: #999;
+  cursor: not-allowed;
+}
+
+button:not(:disabled):active {
+  background-color: #ddd;
+}
+
+input[type="search"],
+input[type="text"] {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+picture {
+  display: block;
+}
+
+.card {
+  border: 1px solid var(--theme-border);
+  border-radius: 0.5rem;
+  list-style-type: none;
+}
+
+.card:hover {
+  box-shadow: 0 0 0 2px var(--theme-accent);
+}
+
+.card:hover img,
+.card a:focus-visible img {
+  filter: grayscale(0);
+}
+
+.card a {
+  border-radius: inherit;
+  display: block;
+  text-decoration: none;
+}
+
+.card h2 {
+  margin: unset;
+}
+
+.card img {
+  aspect-ratio: 1/1;
+  filter: grayscale(100%);
+  width: 100%;
+  transition: filter .2s;
+}
+
+.card div {
+  border-top: 1px solid var(--theme-border);
+  display: flex;
+  justify-content: center;
+  padding: 2.5vh 7.5vw;
+  position: relative;
+}
+
+.card code {
+  background-color: var(--theme-surface);
+  font-size: 1.25rem;
+  position: absolute;
+  top: -3rem;
+  right: 1rem;
+}
+
+.card-grid {
+  display: grid;
+  gap: 2.5vw;
+  margin-top: 2rem;
+  padding: unset;
+  width: 100%;
+}
+
+.icon {
+  display: block;
+}
+
+.icon.small {
+  height: 2rem;
+  width: 2rem;
+}
+
+.icon.medium {
+  height: 3rem;
+  width: 3rem;
+}
+
+.icon path {
+  fill: currentColor;
+  transition: fill .2s;
+}
+
+.icon.bug:hover path { fill: var(--theme-type-bug); }
+.icon.dark:hover path { fill: var(--theme-type-dark); }
+.icon.dragon:hover path { fill: var(--theme-type-dragon); }
+.icon.electric:hover path { fill: var(--theme-type-electric); }
+.icon.fairy:hover path { fill: var(--theme-type-fairy); }
+.icon.fighting:hover path { fill: var(--theme-type-fighting); }
+.icon.fire:hover path { fill: var(--theme-type-fire); }
+.icon.flying:hover path { fill: var(--theme-type-flying); }
+.icon.ghost:hover path { fill: var(--theme-type-ghost); }
+.icon.grass:hover path { fill: var(--theme-type-grass); }
+.icon.ground:hover path { fill: var(--theme-type-ground); }
+.icon.ice:hover path { fill: var(--theme-type-ice); }
+.icon.normal:hover path { fill: var(--theme-type-normal); }
+.icon.poison:hover path { fill: var(--theme-type-poison); }
+.icon.psychic:hover path { fill: var(--theme-type-psychic); }
+.icon.rock:hover path { fill: var(--theme-type-rock); }
+.icon.steel:hover path { fill: var(--theme-type-steel); }
+.icon.water:hover path { fill: var(--theme-type-water); }
+.icon.medal path { fill: var(--theme-medal); }
+.icon.shiny path { fill: var(--theme-shiny); }
+
+.vote {
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 3rem;
+  margin-bottom: 0.5rem;
+  width: 3rem;
+}
+
+.vote .icon path { fill: currentColor; }
+
+.vote[data-voted="true"] .icon.allstar path,
+input[type="radio"]:checked + label .icon.allstar path { fill: var(--theme-vote-allstar); }
+
+.vote[data-voted="true"] .icon.favorite path,
+input[type="radio"]:checked + label .icon.favorite path { fill: var(--theme-vote-favorite); }
+
+.vote[data-voted="true"] .icon.infamous path,
+input[type="radio"]:checked + label .icon.infamous path { fill: var(--theme-vote-infamous); }
+
+.vote[data-voted="true"] .icon.versatile path,
+input[type="radio"]:checked + label .icon.versatile path { fill: var(--theme-vote-versatile); }
+
+
+::placeholder {
+  opacity: 0.5;
+}
+
+@media (min-width: 500px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media(min-width: 1000px) {
+  .card-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
