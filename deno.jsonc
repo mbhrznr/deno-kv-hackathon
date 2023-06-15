@@ -14,6 +14,7 @@
   "importMap": "./import_map.json",
   "lint": {},
   "tasks": {
-    "dev": "deno run --allow-env --allow-net --allow-read --allow-write --unstable --watch=routes/ main.ts"
+    "dev": "deno run --allow-env --allow-net --allow-read --allow-write --unstable --watch=routes/ dev.ts",
+    "start": "deno run --allow-env --allow-net --allow-read --unstable main.ts"
   }
 }
