@@ -51,8 +51,8 @@ export const load = (async (request, context) => {
       const users = await context.database.readMany("users");
 
       return {
-        unlocked: true,
         division,
+        unlocked: true,
         users: users
           .map((u) => ({
             ...u,
@@ -95,10 +95,10 @@ export const load = (async (request, context) => {
         }
 
         return {
-          unlocked: true,
           division,
-          votes: key,
           pokemon: output,
+          votes: key,
+          unlocked: true,
         };
       }
 
@@ -119,9 +119,10 @@ export const load = (async (request, context) => {
       }
 
       return {
-        unlocked: true,
         division,
         pokemon: output,
+        unlocked: true,
+        votes: key,
       };
     }
   }
