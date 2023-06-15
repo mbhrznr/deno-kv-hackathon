@@ -125,8 +125,6 @@ export default function createRouter(context: Context) {
           }
         }
       } catch (err) {
-        console.log(err);
-
         if (
           err.status >= 400 &&
           request.headers.get("accept")?.includes("text/html")

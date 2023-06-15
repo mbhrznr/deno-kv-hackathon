@@ -38,9 +38,6 @@ export const load = (async (request, context) => {
     json.pokemon.id
   );
 
-  console.log({ allstar: await context.database.read("votes", "allstar") });
-  console.log(json.votes);
-
   return { ...json, user, shiny: !!encounters?.find((u) => u === user?.id) };
 }) satisfies LoadFunction;
 
