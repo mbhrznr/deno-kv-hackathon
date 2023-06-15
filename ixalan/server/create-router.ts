@@ -128,7 +128,7 @@ export default function createRouter(context: Context) {
         console.log(err);
 
         if (
-          err.satus >= 400 &&
+          err.status >= 400 &&
           request.headers.get("accept")?.includes("text/html")
         ) {
           /** @todo this should be moved into dedicated `error.tsx` routes once supported */
