@@ -33,7 +33,10 @@ const handler = {
 
     const user = await getUser(request, context.database);
     const pokemon = await context.database.read("pokemon", +groups.pokemon);
-    const votes = await context.database.read("votes", +groups.pokemon);
+    const votes = await context.database.read(
+      "votes_per_pokemon",
+      +groups.pokemon
+    );
     const type: "default" | "shiny" = chance(settings.pokemon.shiny)
       ? "shiny"
       : "default";

@@ -16,6 +16,17 @@ import type {
   PageProps,
 } from "ixalan/types/page.ts";
 
+function remove<T>(array: T[], value: T): T[] {
+  const a = [...array];
+  const i = a.indexOf(value);
+
+  if (i !== -1) {
+    a.splice(i, 1);
+  }
+
+  return a;
+}
+
 export const load = (async (request, context) => {
   const response = await context.routes[
     "/api/pokemon/:pokemon"
@@ -26,6 +37,9 @@ export const load = (async (request, context) => {
     "shiny_encounters",
     json.pokemon.id
   );
+
+  console.log({ allstar: await context.database.read("votes", "allstar") });
+  console.log(json.votes);
 
   return { ...json, user, shiny: !!encounters?.find((u) => u === user?.id) };
 }) satisfies LoadFunction;
@@ -61,19 +75,29 @@ export const action = (async (request, context) => {
 
   const key = data.get("key");
   const votes =
-    (await context.database.read("votes", +groups.pokemon)) ??
+    (await context.database.read("votes_per_pokemon", +groups.pokemon)) ??
     ({
       allstar: [],
       infamous: [],
       favorite: [],
       versatile: [],
-    } as Schema["votes"][number]);
+    } as Schema["votes_per_pokemon"][number]);
 
   if (String(key) in votes) {
-    const k = String(key) as keyof Schema["votes"][number];
+    const k = String(key) as keyof Schema["votes_per_pokemon"][number];
+    const voted = !!votes[k].find((u) => u === user.id);
+    const v = await context.database.read("votes", k);
 
-    await context.database.update("votes", +groups.pokemon, {
-      [String(key)]: votes[k].find((u) => u === user.id)
+    await context.database.update(
+      "votes",
+      k,
+      voted
+        ? remove(v ?? [], +groups.pokemon)
+        : [...(v ?? []), +groups.pokemon!]
+    );
+
+    await context.database.update("votes_per_pokemon", +groups.pokemon, {
+      [String(key)]: voted
         ? votes[k].filter((u) => u !== user.id)
         : [...votes[k], user.id],
     });

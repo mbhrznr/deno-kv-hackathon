@@ -6,7 +6,25 @@ import type { Pokemon } from "app/types/pokemon.ts";
 import type { Schema } from "app/types/schema.ts";
 import type { LoadFunction, PageProps } from "ixalan/types/page.ts";
 
-const keys: (keyof Schema["votes"][number])[] = [
+function count<T>(array: T[][]): { id: T; value: number }[] {
+  const occurrences = new Map<T, number>();
+
+  for (const row of array) {
+    for (const e of row) {
+      if (occurrences.has(e)) {
+        occurrences.set(e, occurrences.get(e)! + 1);
+      } else {
+        occurrences.set(e, 1);
+      }
+    }
+  }
+
+  return [...occurrences]
+    .map(([key, value]) => ({ id: key, value }))
+    .sort((a, b) => b.value - a.value);
+}
+
+const keys: (keyof Schema["votes_per_pokemon"][number])[] = [
   "allstar",
   "favorite",
   "infamous",
@@ -17,8 +35,6 @@ export const load = (async (request, context) => {
   const params = new URL(request.url).searchParams;
   const division: "pokemon" | "users" = (params.get("division") ||
     "pokemon") as "pokemon" | "users";
-
-  const pokemon = await context.database.readMany("pokemon");
 
   switch (division) {
     case "users": {
@@ -61,38 +77,51 @@ export const load = (async (request, context) => {
     }
     case "pokemon":
     default: {
-      const votes = params?.get("votes");
-      const output: (Pokemon & { score: number })[] = [];
+      const key = params?.get("votes");
+      const output: { link: string; name: string; score: number }[] = [];
 
-      for await (const p of pokemon) {
-        const v = await context.database.read("votes", p.id);
+      if (!key) {
+        const votes = await context.database.readMany("votes");
+        const values = count(votes).splice(0, 10);
 
-        if (v) {
-          if (votes && votes in v) {
-            output.push({ ...p, score: v[votes as keyof typeof v].length });
-          } else {
-            output.push({
-              ...p,
-              score: Object.values(v).reduce((acc, val) => {
-                return (acc += val.length);
-              }, 0),
-            });
-          }
+        for await (const { id, value } of values) {
+          const pokemon = await context.database.read("pokemon", id);
+
+          output.push({
+            score: value,
+            name: pokemon?.name!,
+            link: `/pokemon/${id}`,
+          });
         }
+
+        return {
+          unlocked: true,
+          division,
+          votes: key,
+          pokemon: output,
+        };
+      }
+
+      const votes = await context.database.read(
+        "votes",
+        key as keyof Schema["votes"]
+      );
+      const values = count([votes ?? []]).splice(0, 10);
+
+      for await (const { id, value } of values) {
+        const pokemon = await context.database.read("pokemon", id);
+
+        output.push({
+          score: value,
+          name: pokemon?.name!,
+          link: `/pokemon/${id}`,
+        });
       }
 
       return {
         unlocked: true,
         division,
-        pokemon: output
-          .sort((a, b) => b.score - a.score)
-          .slice(0, 10)
-          .map((p) => ({
-            score: p.score,
-            name: p.name,
-            link: `/pokemon/${p.id}`,
-          })),
-        votes,
+        pokemon: output,
       };
     }
   }

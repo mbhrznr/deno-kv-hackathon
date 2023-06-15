@@ -120,12 +120,16 @@ export default async function seed(
       weight: pokemon.weight,
     });
 
-    /** populate empty `votes` for each `pokemon` */
-    await database.create("votes", pokemon.id, {
+    /** populate empty `votes_per_pokemon` for each `pokemon` */
+    await database.create("votes_per_pokemon", pokemon.id, {
       allstar: [],
       favorite: [],
       infamous: [],
       versatile: [],
     });
   }
+
+  ["allstar", "infamous", "favorite", "versatile"];
+
+  await database.create("votes", "allstar", []);
 }
