@@ -29,16 +29,19 @@ const Header = (({ user, pathname }) => {
       </nav>
 
       {user ? (
-        <a href="/me" title="goto user">
+        <a href="/me" title="goto user" className="round">
           <img
             alt={`avatar for github user ${user.login}`}
             src={`/assets/github/${user.id}`}
           />
         </a>
       ) : (
-        <a href="/api/auth/signin" title="sign in with github">
-          <Icon misc="github" size="small" />
-        </a>
+        <>
+          <a href="/api/auth/signin" title="sign in with github">
+            signin
+            <Icon misc="github" size="small" />
+          </a>
+        </>
       )}
     </header>
   );

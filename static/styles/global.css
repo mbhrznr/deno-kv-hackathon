@@ -85,7 +85,7 @@ header nav {
 }
 
 header nav > a,
-header > a {
+header .round {
   border-radius: 50%;
 }
 
