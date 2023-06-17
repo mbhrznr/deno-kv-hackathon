@@ -1,6 +1,6 @@
 import "deno/dotenv/load.ts";
-import { createClient } from "deno/x/kv_oauth/mod.ts";
+import { createGitHubOAuth2Client } from "deno/x/kv_oauth/mod.ts";
 
-const client = createClient("github");
+const client = createGitHubOAuth2Client();
 
 export default client;

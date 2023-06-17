@@ -7,13 +7,13 @@ import type { Handler } from "ixalan/types/handler.ts";
 
 const handler = {
   get: async (request, context) => {
-    const { response, tokens, sessionId } = await handleCallback(
+    const { response, accessToken, sessionId } = await handleCallback(
       request,
       client
     );
 
     const headers = {
-      authorization: `token ${tokens.accessToken}`,
+      authorization: `token ${accessToken}`,
     };
     const github = (await (
       await fetch("https://api.github.com/user", { headers })

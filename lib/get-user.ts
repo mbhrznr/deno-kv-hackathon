@@ -8,7 +8,7 @@ export default async function getUser(
   request: Request,
   database: Awaited<ReturnType<typeof createDatabase<Schema>>>
 ) {
-  const session = getSessionId(request);
+  const session = await getSessionId(request);
 
   if (session) {
     const user = await database.read("sessions", session);
